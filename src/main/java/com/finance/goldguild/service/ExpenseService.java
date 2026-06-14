@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import java.util.List;
 public class ExpenseService {
     private final ExpenseRepo expenseRepo;
     private final UserRepo userRepo;
+    private final GamificationService gamificationService;
+
     public ExpenseResponse addExpense(ExpenseRequest request, String email)
     {
         User user = userRepo.findByEmail(email)
@@ -30,6 +33,11 @@ public class ExpenseService {
         expense.setDate(request.getDate());
         expense.setUser(user);
         expenseRepo.save(expense);
+
+        user.setLastActiveDate(LocalDate.now());
+        userRepo.save(user);
+
+        gamificationService.awardXP(user, GamificationService.XP_EXPENSE_ADDED);
 
         return mapToResponse(expense);
     }
