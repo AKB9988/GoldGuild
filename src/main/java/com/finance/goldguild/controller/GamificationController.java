@@ -1,11 +1,8 @@
 package com.finance.goldguild.controller;
 
-import com.finance.goldguild.dto.gamification.BadgeResponse;
 import com.finance.goldguild.dto.gamification.GamificationProfileResponse;
-import com.finance.goldguild.models.Badge;
-import com.finance.goldguild.models.User;
-import com.finance.goldguild.repository.BadgeRepo;
-import com.finance.goldguild.repository.UserRepo;
+import com.finance.goldguild.dto.gamification.LeaderboardEntry;
+import com.finance.goldguild.service.GamificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,29 +17,16 @@ import java.util.List;
 @AllArgsConstructor
 public class GamificationController {
 
-    private final UserRepo  userRepo;
-    private final BadgeRepo badgeRepo;
+    private final GamificationService gamificationService;
 
     @GetMapping("/profile")
     public ResponseEntity<GamificationProfileResponse> getProfile() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return ResponseEntity.ok(gamificationService.getProfile(email));
+    }
 
-        List<Badge> badges = badgeRepo.findByUser(user);
-
-        List<BadgeResponse> badgeResponses = new java.util.ArrayList<>();
-        for (Badge b : badges) {
-            badgeResponses.add(new BadgeResponse(b.getBadgeType(), b.getEarnedAt()));
-        }
-
-        GamificationProfileResponse response = new GamificationProfileResponse(
-                user.getXp(),
-                user.getLevel(),
-                user.getStreakCount(),
-                badgeResponses
-        );
-
-        return ResponseEntity.ok(response);
+    @GetMapping("/leaderboard")
+    public ResponseEntity<List<LeaderboardEntry>> getLeaderboard() {
+        return ResponseEntity.ok(gamificationService.getLeaderboard());
     }
 }

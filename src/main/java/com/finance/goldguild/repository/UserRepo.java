@@ -3,6 +3,7 @@ package com.finance.goldguild.repository;
 import com.finance.goldguild.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User,Long> {
@@ -10,4 +11,5 @@ public interface UserRepo extends JpaRepository<User,Long> {
     boolean existsByEmail(String email);
     Optional<User> findByUsername(String username);
     boolean existsByUsername(String username);
+    List<User> findAllByOrderByXpDesc();
 }

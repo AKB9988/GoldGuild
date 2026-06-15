@@ -7,5 +7,7 @@ public enum BadgeType {
     FIRST_GOAL,
     GOAL_COMPLETED,
     UNDER_BUDGET,
-    BUDGET_MASTER
+    BUDGET_MASTER,
+    LEVEL_5,
+    XP_1000
 }
