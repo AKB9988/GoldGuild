@@ -4,6 +4,7 @@ import com.finance.goldguild.dto.goal.ContributeRequest;
 import com.finance.goldguild.dto.goal.GoalRequest;
 import com.finance.goldguild.dto.goal.GoalResponse;
 import com.finance.goldguild.service.SavingGoalService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.util.List;
 public class SavingGoalController {
     private final SavingGoalService service;
     @PostMapping
-    public ResponseEntity<GoalResponse> createGoal(@RequestBody GoalRequest request)
+    public ResponseEntity<GoalResponse> createGoal(@Valid @RequestBody GoalRequest request)
     {
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createGoal(request,email));
@@ -30,7 +31,7 @@ public class SavingGoalController {
         return ResponseEntity.status(HttpStatus.OK).body(service.getGoal(email));
     }
     @PutMapping("/{id}/contribute")
-    public ResponseEntity<GoalResponse> contributeToGoal(@PathVariable long id, @RequestBody ContributeRequest request)
+    public ResponseEntity<GoalResponse> contributeToGoal(@PathVariable long id, @Valid @RequestBody ContributeRequest request)
     {
         String email=SecurityContextHolder.getContext().getAuthentication().getName();
         return ResponseEntity.ok(service.contributeToGoal(id, request.getAmount(), email));

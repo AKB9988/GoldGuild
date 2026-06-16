@@ -3,6 +3,7 @@ package com.finance.goldguild.controller;
 import com.finance.goldguild.dto.expense.ExpenseRequest;
 import com.finance.goldguild.dto.expense.ExpenseResponse;
 import com.finance.goldguild.service.ExpenseService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +25,7 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public ResponseEntity<ExpenseResponse> saveExpense(@RequestBody ExpenseRequest expenseRequest) {
+    public ResponseEntity<ExpenseResponse> saveExpense(@Valid @RequestBody ExpenseRequest expenseRequest) {
         String email = getAuthenticatedUserEmail();
         return ResponseEntity.status(HttpStatus.CREATED).body(expenseService.addExpense(expenseRequest, email));
     }
@@ -54,7 +55,7 @@ public class ExpenseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpenseResponse> update(@PathVariable long id, @RequestBody ExpenseRequest request) {
+    public ResponseEntity<ExpenseResponse> update(@PathVariable long id, @Valid @RequestBody ExpenseRequest request) {
         String email = getAuthenticatedUserEmail();
         return ResponseEntity.ok(expenseService.updateExpense(id, request, email));
     }

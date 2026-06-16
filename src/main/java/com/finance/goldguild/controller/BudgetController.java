@@ -4,6 +4,7 @@ import com.finance.goldguild.dto.budget.BudgetRequest;
 import com.finance.goldguild.dto.budget.BudgetResponse;
 import com.finance.goldguild.dto.budget.BudgetStatusResponse;
 import com.finance.goldguild.service.BudgetService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +26,7 @@ public class BudgetController {
     }
 
     @PostMapping
-    public ResponseEntity<BudgetResponse> setBudget(@RequestBody BudgetRequest budgetRequest) {
+    public ResponseEntity<BudgetResponse> setBudget(@Valid @RequestBody BudgetRequest budgetRequest) {
         String email = getAuthenticatedUserEmail();
         BudgetResponse response = budgetService.setBudget(budgetRequest, email);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
