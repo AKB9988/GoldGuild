@@ -8,7 +8,9 @@ import com.finance.goldguild.repository.SavingGoalRepo;
 import com.finance.goldguild.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class SavingGoalService {
 
     public GoalResponse createGoal(GoalRequest request, String email)
     {
-        User user=userRepo.findByEmail(email).orElseThrow(()->new IllegalArgumentException("User not found"));
+        User user=userRepo.findByEmail(email).orElseThrow(()->new EntityNotFoundException("User not found"));
         SavingGoal goal = new SavingGoal();
         goal.setName(request.getName());
         goal.setTargetAmount(request.getTargetAmount());
@@ -34,7 +36,7 @@ public class SavingGoalService {
     }
     public List<GoalResponse> getGoal(String email)
     {
-        User user=userRepo.findByEmail(email).orElseThrow(()->new IllegalArgumentException("User not found"));
+        User user=userRepo.findByEmail(email).orElseThrow(()->new EntityNotFoundException("User not found"));
         List<SavingGoal> goals = savingGoalRepo.findByUser(user);
         List<GoalResponse> goalResponses=new ArrayList<>();
         for (SavingGoal goal:goals)
@@ -43,10 +45,11 @@ public class SavingGoalService {
         }
         return goalResponses;
     }
+    @Transactional
     public GoalResponse contributeToGoal(long id, BigDecimal amount,String email)
     {
-        User user = userRepo.findByEmail(email).orElseThrow(()->new IllegalArgumentException("User not found"));
-        SavingGoal goal =savingGoalRepo.findById(id).orElseThrow(()->new IllegalArgumentException("Saving goal not found"));
+        User user = userRepo.findByEmail(email).orElseThrow(()->new EntityNotFoundException("User not found"));
+        SavingGoal goal =savingGoalRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Saving goal not found"));
         if(goal.getUser().getId()!=(user.getId()))
             throw new IllegalArgumentException("You do not have permission to contribute to this goal.");
         BigDecimal updatedAmount=goal.getCurrentAmount().add(amount);
@@ -67,8 +70,8 @@ public class SavingGoalService {
     }
     public void deleteGoal(long id, String email)
     {
-        User user = userRepo.findByEmail(email).orElseThrow(()->new IllegalArgumentException("User not found"));
-        SavingGoal goal = savingGoalRepo.findById(id).orElseThrow(()->new IllegalArgumentException("Goal not found"));
+        User user = userRepo.findByEmail(email).orElseThrow(()->new EntityNotFoundException("User not found"));
+        SavingGoal goal = savingGoalRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Goal not found"));
         if(goal.getUser().getId() !=(user.getId()))
             throw new IllegalArgumentException("Not your goal");
         savingGoalRepo.deleteById(id);

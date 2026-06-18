@@ -6,13 +6,12 @@ import com.finance.goldguild.models.Expense;
 import com.finance.goldguild.models.User;
 import com.finance.goldguild.repository.ExpenseRepo;
 import com.finance.goldguild.repository.UserRepo;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,7 +24,7 @@ public class ExpenseService {
     public ExpenseResponse addExpense(ExpenseRequest request, String email)
     {
         User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         Expense expense = new Expense();
         expense.setAmount(request.getAmount());
         expense.setNote(request.getNote());
@@ -34,7 +33,20 @@ public class ExpenseService {
         expense.setUser(user);
         expenseRepo.save(expense);
 
-        user.setLastActiveDate(LocalDate.now());
+        LocalDate today = LocalDate.now();
+
+        // only update streak once per day
+        if (user.getLastActiveDate() == null || !user.getLastActiveDate().equals(today)) {
+            // if they were active yesterday, continue the streak
+            if (user.getLastActiveDate() != null && user.getLastActiveDate().equals(today.minusDays(1))) {
+                user.setStreakCount(user.getStreakCount() + 1);
+            } else {
+                // missed a day, restart streak from 1
+                user.setStreakCount(1);
+            }
+            user.setLastActiveDate(today);
+        }
+
         userRepo.save(user);
 
         gamificationService.awardXP(user, GamificationService.XP_EXPENSE_ADDED);
@@ -43,7 +55,7 @@ public class ExpenseService {
     }
     public List<ExpenseResponse> getExpenses(String email)
     {
-        User user = userRepo.findByEmail(email).orElseThrow(()->new IllegalArgumentException("User not found"));
+        User user = userRepo.findByEmail(email).orElseThrow(()->new EntityNotFoundException("User not found"));
         List<Expense> expenses = expenseRepo.findByUser(user);
         List<ExpenseResponse> responseList = new java.util.ArrayList<>();
         for (Expense expense : expenses) {
@@ -54,9 +66,9 @@ public class ExpenseService {
     public void deleteExpense(Long id, String email)
     {
         User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         Expense expense = expenseRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Expense not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Expense not found"));
         if (expense.getUser().getId() != user.getId()) {
             throw new IllegalArgumentException("You are not authorized to delete this expense");
         }
@@ -66,9 +78,9 @@ public class ExpenseService {
     public ExpenseResponse updateExpense(Long id, ExpenseRequest request, String email)
     {
         User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         Expense expense = expenseRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Expense not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Expense not found"));
         if (expense.getUser().getId() != user.getId()) {
             throw new IllegalArgumentException("You are not authorized to update this expense");
         }
@@ -90,14 +102,18 @@ public class ExpenseService {
         );
     }
 
-    public ExpenseResponse getExpense(long id) {
-       Expense expense= expenseRepo.findById(id).orElseThrow(()->new IllegalArgumentException("Expense not found"));
-       return mapToResponse(expense);
+    public ExpenseResponse getExpense(long id, String email) {
+        User user = userRepo.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        Expense expense = expenseRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Expense not found"));
+        if (expense.getUser().getId() != user.getId()) {
+            throw new IllegalArgumentException("You are not authorized to view this expense");
+        }
+        return mapToResponse(expense);
     }
 
     public List<ExpenseResponse> getExpensesByMonth(String email, String month) {
         User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         List<Expense> expenses = expenseRepo.findByUser(user);
         List<ExpenseResponse> responseList = new java.util.ArrayList<>();
         for (Expense expense : expenses) {

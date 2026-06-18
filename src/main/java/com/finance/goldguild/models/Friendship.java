@@ -18,10 +18,10 @@ public class Friendship {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "user-id")
+    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="friend-id")
+    @JoinColumn(name = "friend_id")
     private User friend;
     private FriendStatus status;
     @CreationTimestamp

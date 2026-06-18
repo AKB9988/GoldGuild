@@ -31,13 +31,16 @@ public class BudgetResetScheduler {
                 .format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
         for (Budget budget : currentBudgets) {
-            Budget newBudget = new Budget();
-            newBudget.setUser(budget.getUser());
-            newBudget.setCategory(budget.getCategory());
-            newBudget.setLimitAmount(budget.getLimitAmount());
-            newBudget.setMonth(nextMonth);
-            budgetRepo.save(newBudget);
-            log.info("Budget created for next month: {}", budget.getCategory());
+            boolean alreadyExists = budgetRepo.findByUserAndCategoryAndMonth(budget.getUser(), budget.getCategory(), nextMonth).isPresent();
+            if (!alreadyExists) {
+                Budget newBudget = new Budget();
+                newBudget.setUser(budget.getUser());
+                newBudget.setCategory(budget.getCategory());
+                newBudget.setLimitAmount(budget.getLimitAmount());
+                newBudget.setMonth(nextMonth);
+                budgetRepo.save(newBudget);
+                log.info("Budget created for next month: {}", budget.getCategory());
+            }
         }
         log.info("Monthly budget reset complete.");
     }

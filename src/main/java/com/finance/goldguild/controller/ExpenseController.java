@@ -32,7 +32,8 @@ public class ExpenseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ExpenseResponse> getExpense(@PathVariable long id) {
-        return ResponseEntity.ok(expenseService.getExpense(id));
+        String email = getAuthenticatedUserEmail();
+        return ResponseEntity.ok(expenseService.getExpense(id, email));
     }
 
     @GetMapping

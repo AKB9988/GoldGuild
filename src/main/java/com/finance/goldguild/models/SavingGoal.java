@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="saving-goals")
+@Table(name="saving_goals")
 public class SavingGoal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
