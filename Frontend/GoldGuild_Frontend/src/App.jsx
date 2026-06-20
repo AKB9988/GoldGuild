@@ -1,12 +1,15 @@
 import React from 'react';
-
+import Register  from './pages/Register';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Login from './pages/Login';
+const queryClient = new QueryClient();
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-blue-600">
-        GoldGuild Frontend Setup Successful! 🎯
-      </h1>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Register/>
+      <Login/>
+    
+    </QueryClientProvider>
   );
 }
 

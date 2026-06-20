@@ -19,11 +19,12 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request)
     {
         if(userRepo.existsByEmail(request.getEmail()))
-            throw new IllegalArgumentException("User already exists.");
+            throw new IllegalArgumentException("Email is already registered.");
+        if(userRepo.existsByUsername(request.getUsername()))
+            throw new IllegalArgumentException("Username is already taken.");
         User user=new User();
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
-        user.setName(request.getName() != null ? request.getName() : request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepo.save(user);
         String token =jwtUtil.generateToken(request.getEmail());
