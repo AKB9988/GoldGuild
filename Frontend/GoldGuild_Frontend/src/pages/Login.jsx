@@ -2,86 +2,125 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import api from "../services/api";
 
-export default function Login()
-{
-    const [email, setEmail]= useState('');
+export default function Login() {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const login = useMutation({
-        mutationFn:async (userData)=>{
-            const response= await api.post("/api/auth/login",userData);
+        mutationFn: async (userData) => {
+            const response = await api.post("/api/auth/login", userData);
             return response.data;
         },
-        onSuccess:(data)=>{
-            if(data.token)
-            {
+        onSuccess: (data) => {
+            if (data.token) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('username', data.username);
                 alert("Login successful, token saved.");
                 setEmail('');
                 setPassword('');
             }
             else
                 alert("Login successful but token not saved check backend");
-            
+
         },
-        onError:(error)=>
-        {
+        onError: (error) => {
             alert("Login failed: " + (error?.response?.data?.message || error?.message || "Invalid Credentials"));
         }
     });
 
-    const handleSubmit =(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if(!email||!password){
-            alert("Please fill all fields." );
+        if (!email || !password) {
+            alert("Please fill all fields.");
             return;
         }
-        login.mutate({email,password});
+        login.mutate({ email, password });
     }
 
     return (
-        <div className="w-full min-h-screen bg-[#0F0F0F] flex items-center justify-center p-4">
-            <div className="w-full max-w-md bg-[#1A1A1A] rounded-[24px] border border-[#333]/60 p-8 shadow-2xl transition-all duration-300 hover:border-[#F59E0B]/30 flex flex-col justify-between min-h-[500px]">
-                <div>
-                    <div className="text-center pb-6">
-                        <div className="text-4xl font-bold text-[#F59E0B] tracking-tight">GoldGuild</div>
-                        <div className="text-[#9CA3AF] text-sm mt-2">make budgeting feel like a game</div>
+        <div className="w-full min-h-screen bg-surface-bg flex items-center justify-center p-4">
+            <div className="flex w-full max-w-[900px] min-h-[560px] rounded-[22px] overflow-hidden border border-border-custom shadow-dark flex-col md:flex-row">
+
+
+                <div className="flex-1 bg-gradient-to-br from-[#1c1507] to-surface-card p-8 md:p-[50px_44px] flex flex-col justify-center relative overflow-hidden">
+                    <div className="absolute top-[-80px] left-[-80px] w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(245,158,11,0.12),transparent_70%)] rounded-full"></div>
+                    <div className="w-14 h-14 bg-gradient-to-br from-gold to-[#d97706] rounded-[16px] flex items-center justify-center text-3xl mb-7 glow-gold relative z-10">🏆</div>
+                    <div className="text-3xl font-extrabold leading-tight mb-3.5 tracking-tight text-white relative z-10">
+                        Master your<br />
+                        <span className="text-gold">finances</span>,<br />
+                        level up your life.
                     </div>
+                    <div className="text-sm text-[#8A8A8A] leading-relaxed mb-9 relative z-10">
+                        Track expenses, hit saving goals, earn XP & badges — and compete with friends on the leaderboard.
+                    </div>
+                    <ul className="list-none flex flex-col gap-3 relative z-10">
+                        <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
+                            <span className="text-gold text-[15px]">⚡</span> Earn XP for every logged expense
+                        </li>
+                        <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
+                            <span className="text-gold text-[15px]">🎯</span> Set & achieve saving goals
+                        </li>
+                        <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
+                            <span className="text-gold text-[15px]">🏅</span> Unlock badges & climb ranks
+                        </li>
+                        <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
+                            <span className="text-gold text-[15px]">📊</span> Visual budget analytics
+                        </li>
+                        <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
+                            <span className="text-gold text-[15px]">🔥</span> Maintain daily streaks
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="w-full md:w-[400px] bg-surface-card p-8 md:p-[50px_44px] flex flex-col justify-center">
+                    <h2 className="text-2xl font-bold mb-1.5 text-white">Welcome back</h2>
+                    <p className="text-sm text-[#8A8A8A] mb-7">Sign in to your GoldGuild account</p>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
-                            <label className="block text-[#9CA3AF] text-[11px] mb-1 font-medium">Email</label>
-                            <input 
-                                type="email" 
-                                placeholder="Enter Email" 
-                                value={email} 
-                                onChange={(e)=>setEmail(e.target.value)}
-                                className="w-full bg-[#0F0F0F] border border-[#333]/80 rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]/30 transition-all placeholder:text-[#555]"
+                            <label className="text-xs font-semibold text-[#8A8A8A] mb-1.5 block tracking-wider">Email Address</label>
+                            <input
+                                type="email"
+                                placeholder="you@example.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full bg-surface-2 border border-border-custom rounded-lg text-white text-sm p-[11px_14px] outline-none focus:border-gold focus:ring-3 focus:ring-gold-glow transition-all placeholder:text-[#555]"
                             />
                         </div>
                         <div>
-                            <label className="block text-[#9CA3AF] text-[11px] mb-1 font-medium">Password</label>
-                            <input 
-                                type="password" 
-                                placeholder="Enter Password" 
-                                value={password} 
-                                onChange={(e)=>setPassword(e.target.value)}
-                                className="w-full bg-[#0F0F0F] border border-[#333]/80 rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]/30 transition-all placeholder:text-[#555]"
+                            <div className="flex justify-between items-center mb-1.5">
+                                <label className="text-xs font-semibold text-[#8A8A8A] block tracking-wider">Password</label>
+                                <a href="#" className="text-xs text-gold no-underline hover:underline">Forgot password?</a>
+                            </div>
+                            <input
+                                type="password"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full bg-surface-2 border border-border-custom rounded-lg text-white text-sm p-[11px_14px] outline-none focus:border-gold focus:ring-3 focus:ring-gold-glow transition-all placeholder:text-[#555]"
                             />
                         </div>
 
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             disabled={login.isPending}
-                            className="w-full bg-[#F59E0B] hover:bg-[#d98a0a] active:scale-[0.98] text-[#0F0F0F] font-semibold py-2.5 rounded-lg text-sm transition-all disabled:opacity-50 mt-6 cursor-pointer shadow-md shadow-[#F59E0B]/10"
+                            className="w-full mt-2 inline-flex items-center justify-center gap-1.5 font-semibold text-sm p-[10px_22px] rounded-lg bg-gold text-[#0F0F0F] cursor-pointer hover:bg-[#fbbf24] hover:shadow-gold hover:-translate-y-px active:translate-y-0 transition-all disabled:opacity-50"
                         >
-                            {login.isPending ? "Logging in...." : "Login"}
+                            {login.isPending ? "Logging in...." : "Sign In →"}
                         </button>
                     </form>
-                </div>
 
-                <div className="text-center mt-8 text-[#9CA3AF] text-xs">
-                    Don't have an account? <span className="text-[#F59E0B] hover:underline ml-1 font-medium">Signup</span>
+                    <div className="text-center text-xs text-[#8A8A8A] mt-6">
+                        Don't have an account? <span className="text-gold font-semibold hover:underline ml-1 cursor-pointer">Signup</span>
+                    </div>
+
+                    <div className="mt-5 bg-gold-glow border border-gold-dim rounded-lg p-3 flex items-center gap-2.5">
+                        <span className="text-xl">✨</span>
+                        <div>
+                            <div className="text-xs font-bold text-gold">New here?</div>
+                            <div className="text-[11px] text-[#8A8A8A]">You'll earn 50 XP just for registering!</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
