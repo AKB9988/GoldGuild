@@ -28,7 +28,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepo.save(user);
         String token =jwtUtil.generateToken(request.getEmail());
-        return new AuthResponse(token);
+        return new AuthResponse(token, user.getUsername());
     }
     public AuthResponse login(LoginRequest request)
     {
@@ -36,7 +36,7 @@ public class AuthService {
         if(!passwordEncoder.matches(request.getPassword(),user.getPassword()))
             throw new IllegalArgumentException("Wrong password");
         String token =jwtUtil.generateToken(request.getEmail());
-        return new AuthResponse(token);
+        return new AuthResponse(token, user.getUsername());
     }
 
 }
