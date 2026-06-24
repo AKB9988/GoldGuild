@@ -1,6 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import api from "../services/api";
+import {ChartNoAxesColumn, Flame, Goal, Medal, Zap} from "lucide-react";
+import HomePage from "@/pages/HomePage.jsx";
+
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -16,6 +19,7 @@ export default function Login() {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('username', data.username);
                 alert("Login successful, token saved.");
+                <HomePage/>
                 setEmail('');
                 setPassword('');
             }
@@ -55,19 +59,19 @@ export default function Login() {
                     </div>
                     <ul className="list-none flex flex-col gap-3 relative z-10">
                         <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
-                            <span className="text-gold text-[15px]">⚡</span> Earn XP for every logged expense
+                            <span className="text-gold text-[15px]"><Zap/></span> Earn XP for every logged expense
                         </li>
                         <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
-                            <span className="text-gold text-[15px]">🎯</span> Set & achieve saving goals
+                            <span className="text-gold text-[15px]"><Goal/></span> Set & achieve saving goals
                         </li>
                         <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
-                            <span className="text-gold text-[15px]">🏅</span> Unlock badges & climb ranks
+                            <span className="text-gold text-[15px]"><Medal/></span> Unlock badges & climb ranks
                         </li>
                         <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
-                            <span className="text-gold text-[15px]">📊</span> Visual budget analytics
+                            <span className="text-gold text-[15px]"><ChartNoAxesColumn/></span> Visual budget analytics
                         </li>
                         <li className="flex items-center gap-2.5 text-sm text-[#8A8A8A]">
-                            <span className="text-gold text-[15px]">🔥</span> Maintain daily streaks
+                            <span className="text-gold text-[15px]"><Flame/></span> Maintain daily streaks
                         </li>
                     </ul>
                 </div>
@@ -90,7 +94,6 @@ export default function Login() {
                         <div>
                             <div className="flex justify-between items-center mb-1.5">
                                 <label className="text-xs font-semibold text-[#8A8A8A] block tracking-wider">Password</label>
-                                <a href="#" className="text-xs text-gold no-underline hover:underline">Forgot password?</a>
                             </div>
                             <input
                                 type="password"
