@@ -158,7 +158,7 @@ export default function HomePage({ setActiveNav }) {
     const { data: monthExpenses = [], isLoading: monthlyExpLoading } = useQuery({
         queryKey: ["monthlyExpanses", currentMonth()],
         queryFn: async () => {
-            const res = await api.get(`/api/expenses/${currentMonth()}`);
+            const res = await api.get(`/api/expenses/month/${currentMonth()}`);
             return res.data;
         }
     });
