@@ -21,7 +21,7 @@ export default function Leaderboard (){
         <div className="w-full bg-[#0F0F0F] text-zinc-400 p-6 font-sans">
 
             <div className="mb-8">
-                <h2 className="text-xl font-extrabold text-white tracking-tight">Guild Leaderboard 🏅</h2>
+                <h2 className="text-xl font-extrabold text-white tracking-tight">Guild Leaderboard </h2>
                 <p className="text-xs text-[#8A8A8A] mt-1">Climb the ranks by maintaining your savings streak and logging expenses.</p>
             </div>
 
