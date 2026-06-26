@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/services/api.js";
 import { Button } from "@/components/ui/button.jsx";
+import AddExpense from "@/components/AddExpense.jsx";
 
 const Category_Data = {
     FOOD: {
@@ -175,6 +176,7 @@ export default function Expenses() {
     const [activeTab, setActiveTab] = useState("All");
     const [searchQuery, setSearchQuery] = useState("");
     const [editingExpense, setEditingExpense] = useState(null);
+    const [addExpenseModal, setAddExpense]=useState(false);
 
     const qc = useQueryClient();
 
@@ -231,6 +233,19 @@ export default function Expenses() {
 
     return (
         <div className="w-full bg-[#0F0F0F] text-zinc-400 p-6 font-sans">
+
+            <div className="flex items-center justify-between border-b border-zinc-900 pb-5 mb-6">
+                <div>
+                    <h1 className="text-2xl font-bold text-white tracking-tight">Expenses</h1>
+                    <p className="text-xs text-zinc-500 mt-1">Manage, filter, and track your recent financial transaction logs.</p>
+                </div>
+                <button
+                    onClick={()=>setAddExpense(true)}
+                    className="bg-[#f59e0b] hover:bg-[#d97706] text-[#0F0F0F] font-bold text-sm px-5 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-1 cursor-pointer"
+                >
+                    + Add Expense
+                </button>
+            </div>
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
                 <div className="flex gap-2 overflow-x-auto pb-1">
                     {CATEGORIES.map((cat) => (
@@ -356,6 +371,20 @@ export default function Expenses() {
                     onSuccess={handleSuccessEdit}
                 />
             )}
+            {
+                addExpenseModal && (
+                    <AddExpense
+                        Category_Data={Category_Data}
+                        onClose={() => setAddExpense(false)}
+                        onSuccess={async () => {
+                          await Promise.all( [ queryClient.invalidateQueries(["expenses"]),
+                            queryClient.invalidateQueries(["monthlyExpanses"]),
+                            queryClient.invalidateQueries(["budget-status"]),
+                            queryClient.invalidateQueries(["gamification-profile"]),
+                        ])}}
+                    />
+                )
+            }
         </div>
     );
 }

@@ -40,7 +40,7 @@ export default function AddExpense({onClose,onSuccess,Category_Data}){
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
         <div className="flex flex-col items-strech  p-7 shadow-2xl bg-surface-card border rounded-md w-full max-w-[440px] ">
             <div className= "flex items-center justify-between mb-6">
-                <h3 className="text-lg text-white font-bold"> Add Expense 💸 </h3>
+                <h3 className="text-lg text-white font-bold"> Add Expense  </h3>
                 <Button size="icon" onClick={onClose} variant="ghost" className="rounded-full text-white border w-8 h-8"><X size="20"/> </Button>
             </div>
 
@@ -108,7 +108,7 @@ export default function AddExpense({onClose,onSuccess,Category_Data}){
                     </button>
                     <button type="submit" disabled={addExpense.isPending}
                             className="flex-[2] bg-gold text-[#0F0F0F] font-semibold text-sm rounded-lg py-2.5 hover:bg-[#fbbf24] hover:shadow-gold transition-all cursor-pointer disabled:opacity-50">
-                        {addExpense.isPending ? "Adding…" : "Add Expense ⚡"}
+                        {addExpense.isPending ? "Adding…" : "Add Expense "}
                     </button>
                 </div>
                 </form>
