@@ -28,8 +28,8 @@ public class GamificationService {
 
     private static final int XP_PER_LEVEL = 500;
 
-    private final UserRepo      userRepo;
-    private final BadgeRepo     badgeRepo;
+    private final UserRepo  userRepo;
+    private final BadgeRepo badgeRepo;
     private final BadgeService  badgeService;
 
     public void awardXP(User user, int xpAmount)

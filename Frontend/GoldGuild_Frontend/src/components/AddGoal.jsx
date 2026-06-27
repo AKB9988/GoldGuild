@@ -117,7 +117,7 @@ export default function AddGoal({ onClose, onSuccess }) {
                             disabled={addGoal.isPending}
                             className="flex-[2] bg-gold text-[#0F0F0F] font-semibold text-sm rounded-lg py-2.5 hover:bg-[#fbbf24] hover:shadow-gold transition-all cursor-pointer disabled:opacity-50"
                         >
-                            {addGoal.isPending ? "Creating…" : "Create Goal 🎯"}
+                            {addGoal.isPending ? "Creating…" : "Create Goal"}
                         </button>
                     </div>
                 </form>

@@ -361,14 +361,14 @@ export default function HomePage({ setActiveNav }) {
                     </div>
                     <div>
                         {
-                            loadingExp ? (<div className="text-white p-6 w-full flex justify-center items-center">
+                            loadingExp ? (<div className="text-center text-[#8A8A8A] text-sm py-6">
                                     Loading...
                                 </div>) :
                                 recentExpenses.length === 0 ? (
-                                    <div className="flex flex-col justify-center items-center w-full ">
+                                    <div className="flex flex-col justify-center items-center w-full py-6">
                                         <div className="w-10 h-10 mt-2 rounded-lg mb-2 p-2 bg-green-300/12 text-white"><DollarSign /></div>
-                                        <div className="font-bold text-white p-2 ">No expenses yet</div>
-                                        <button onClick={() => setShowAddExpense(true)} className="text-gold hover:underline  cursor-pointer font-bold">Add your first expense →</button>
+                                        <div className="text-sm text-[#8A8A8A] ">No expenses yet</div>
+                                        <button onClick={() => setShowAddExpense(true)} className="text-gold hover:underline cursor-pointer font-bold text-sm bg-transparent border-0">Add your first expense →</button>
                                     </div>
                                 ) : (
                                     <div className="space-y-0">
@@ -415,8 +415,8 @@ export default function HomePage({ setActiveNav }) {
                     {loadingBudget ? (
                         <div className="text-center text-[#8A8A8A] text-sm py-6">Loading…</div>
                     ) : budgets.length === 0 ? (
-                        <div className="text-center py-8">
-                            <div className="text-4xl mb-3 bg-green-300/12 text-white"><ChartNoAxesColumn /></div>
+                        <div className="flex flex-col justify-center items-center w-full ">
+                            <div className="w-10 h-10 mt-2 rounded-lg mb-2 p-2 bg-green-300/12 text-white"><ChartNoAxesColumn /></div>
                             <div className="text-sm text-[#8A8A8A]">No budgets set yet</div>
                         </div>
                     ) : (
@@ -473,8 +473,8 @@ export default function HomePage({ setActiveNav }) {
                     {loadingGoals ? (
                         <div className="text-center text-[#8A8A8A] text-sm py-6">Loading…</div>
                     ) : goals.length === 0 ? (
-                        <div className="text-center py-8">
-                            <div className="text-4xl mb-3">🎯</div>
+                        <div className="flex flex-col justify-center items-center w-full ">
+                            <div className="w-10 h-10 mt-2 rounded-lg mb-2 p-2 bg-green-300/12 text-white "><Goal/></div>
                             <div className="text-sm text-[#8A8A8A] mb-2.5">No goals yet.</div>
                             <button onClick={() => setShowAddGoal(true)} className="text-gold hover:underline cursor-pointer font-bold text-sm bg-transparent border-0">Create your first! →</button>
                         </div>
