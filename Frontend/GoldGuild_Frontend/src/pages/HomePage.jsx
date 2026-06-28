@@ -156,7 +156,7 @@ export default function HomePage({ setActiveNav }) {
         }
     });
     const { data: monthExpenses = [], isLoading: monthlyExpLoading } = useQuery({
-        queryKey: ["monthlyExpanses", currentMonth()],
+        queryKey: ["expenses-month", currentMonth()],
         queryFn: async () => {
             const res = await api.get(`/api/expenses/month/${currentMonth()}`);
             return res.data;
@@ -170,7 +170,7 @@ export default function HomePage({ setActiveNav }) {
         }
     });
     const { data: goals = [], isLoading: loadingGoals } = useQuery({
-        queryKey: ["saving-goals"],
+        queryKey: ["goals"],
         queryFn: async () => {
             const res = await api.get("/api/goals");
             return res.data;
@@ -538,10 +538,10 @@ export default function HomePage({ setActiveNav }) {
                     Category_Data={Category_Data}
                     onClose={() => setShowAddExpense(false)}
                     onSuccess={() => {
-                        queryClient.invalidateQueries(["expenses"]);
-                        queryClient.invalidateQueries(["monthlyExpanses"]);
-                        queryClient.invalidateQueries(["budget-status"]);
-                        queryClient.invalidateQueries(["gamification-profile"]);
+                        queryClient.invalidateQueries({ queryKey: ["expenses"] });
+                        queryClient.invalidateQueries({ queryKey: ["expenses-month"] });
+                        queryClient.invalidateQueries({ queryKey: ["budget-status"] });
+                        queryClient.invalidateQueries({ queryKey: ["gamification-profile"] });
                     }}
                 />
             )}
@@ -549,8 +549,8 @@ export default function HomePage({ setActiveNav }) {
                 <AddGoal
                     onClose={() => setShowAddGoal(false)}
                     onSuccess={() => {
-                        queryClient.invalidateQueries(["saving-goals"]);
-                        queryClient.invalidateQueries(["gamification-profile"]);
+                        queryClient.invalidateQueries({ queryKey: ["goals"] });
+                        queryClient.invalidateQueries({ queryKey: ["gamification-profile"] });
                     }}
                 />
             )}

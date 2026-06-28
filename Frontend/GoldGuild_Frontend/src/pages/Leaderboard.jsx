@@ -115,7 +115,7 @@ export default function Leaderboard (){
                                                                     className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
                                                                         isMe?"bg-gold text-[#0F0F0F]":"bg-surface-3 border-border-custom text-white"
                                                                     }`}
-                                                                >{rank1.username.slice(0,2).toUpperCase()}</div>
+                                                                >{user.username ? user.username.slice(0, 2).toUpperCase() : "??"}</div>
                                                                 <div>
                                                                     <span className={`font-bold ${isMe?"text-gold ":"text-zinc-200"}`}>{user.username}</span>
                                                                     {isMe && <span className="ml-1.5 text-[9px] font-semibold rounded-full px-1.5 py-0.5 text-gold bg-gold-glow border border-gold-dim">Me</span>}

@@ -20,7 +20,7 @@ export default function AddExpense({onClose,onSuccess,Category_Data}){
             return res.data;
         },
         onSuccess:()=>{onSuccess(); onClose(); },
-        onError:(e)=>alert("Error: "+ e?.response?.data?.messagae || e.message)
+        onError:(e)=>alert("Error: "+ (e?.response?.data?.message || e.message))
     });
 
     const handleSubmit=(e)=>{
