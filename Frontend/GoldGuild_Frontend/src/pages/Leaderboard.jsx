@@ -35,16 +35,16 @@ export default function Leaderboard (){
                 </div>
             ) : (
                 <>
-                    <div className="flex items-end justify-center gap-2 sm:gap-6 mb-8 pt-6 sm:pt-8 select-none">
+                    <div className="flex items-end justify-center gap-3 sm:gap-6 mb-8 pt-6 sm:pt-8 select-none">
                         {rank2 && (
                             <div className="flex flex-col items-center">
                                 <div className="relative mb-2">
                                     <div className="rounded-full w-10 h-10 sm:w-12 sm:h-12 bg-zinc-600 border border-zinc-500 flex items-center justify-center font-bold text-xs sm:text-sm text-white shadow-md">{rank2.username.slice(0,2).toUpperCase()}</div>
                                 </div>
-                                <div className="w-16 xs:w-20 sm:w-24 h-16 bg-zinc-800/80 border border-zinc-700/50 rounded-t-lg flex flex-col items-center justify-center text-center shadow-lg p-1">
-                                    <span className="text-base sm:text-lg font-black text-zinc-400">#2</span>
-                                    <span className="text-[9px] sm:text-[10px] text-zinc-500 font-bold max-w-[55px] sm:max-w-[70px] truncate">{rank2.username}</span>
-                                    <span className="text-[8px] sm:text-[9px] text-[#8A8A8A]">{rank2.xp.toLocaleString()} XP</span>
+                                <div className="w-20 xs:w-22 sm:w-26 h-20 sm:h-24 bg-zinc-800/80 border border-zinc-700/50 rounded-t-lg flex flex-col items-center justify-center text-center shadow-lg p-1.5 gap-0.5">
+                                    <span className="text-lg sm:text-xl font-black text-zinc-400 leading-none">#2</span>
+                                    <span className="text-[10px] sm:text-xs text-zinc-300 font-bold max-w-[65px] sm:max-w-[80px] truncate leading-tight">{rank2.username}</span>
+                                    <span className="text-[9px] sm:text-[10px] text-[#8A8A8A] leading-none">{rank2.xp.toLocaleString()} XP</span>
                                 </div>
                             </div>
                         )}
@@ -57,10 +57,10 @@ export default function Leaderboard (){
                                         {rank1.username.slice(0, 2).toUpperCase()}
                                     </div>
                                 </div>
-                                <div className="w-20 xs:w-24 sm:w-28 h-20 sm:h-24 bg-gradient-to-t from-gold-glow to-gold/25 border border-gold-dim rounded-t-xl flex flex-col items-center justify-center text-center shadow-gold p-1">
-                                    <span className="text-xl sm:text-2xl font-black text-gold">#1</span>
-                                    <span className="text-[11px] sm:text-xs text-white font-bold max-w-[65px] sm:max-w-[80px] truncate">{rank1.username}</span>
-                                    <span className="text-[9px] sm:text-[10px] text-gold font-semibold">{rank1.xp.toLocaleString()} XP</span>
+                                <div className="w-24 xs:w-26 sm:w-30 h-24 sm:h-28 bg-gradient-to-t from-gold-glow to-gold/25 border border-gold-dim rounded-t-xl flex flex-col items-center justify-center text-center shadow-gold p-2 gap-0.5">
+                                    <span className="text-2xl sm:text-3xl font-black text-gold leading-none">#1</span>
+                                    <span className="text-xs sm:text-sm text-white font-bold max-w-[75px] sm:max-w-[90px] truncate leading-tight">{rank1.username}</span>
+                                    <span className="text-[10px] sm:text-xs text-gold font-semibold leading-none">{rank1.xp.toLocaleString()} XP</span>
                                 </div>
                             </div>
                         )}
@@ -72,10 +72,10 @@ export default function Leaderboard (){
                                         {rank3.username.slice(0, 2).toUpperCase()}
                                     </div>
                                 </div>
-                                <div className="w-16 xs:w-20 sm:w-24 h-12 sm:h-14 bg-amber-900/20 border border-amber-950/40 rounded-t-lg flex flex-col items-center justify-center text-center shadow-lg p-1">
-                                    <span className="text-sm sm:text-base font-black text-amber-600">#3</span>
-                                    <span className="text-[9px] sm:text-[10px] text-zinc-500 font-bold max-w-[55px] sm:max-w-[70px] truncate">{rank3.username}</span>
-                                    <span className="text-[8px] sm:text-[9px] text-[#8A8A8A]">{rank3.xp.toLocaleString()} XP</span>
+                                <div className="w-20 xs:w-22 sm:w-26 h-16 sm:h-20 bg-amber-900/20 border border-amber-950/40 rounded-t-lg flex flex-col items-center justify-center text-center shadow-lg p-1.5 gap-0.5">
+                                    <span className="text-base sm:text-lg font-black text-amber-500 leading-none">#3</span>
+                                    <span className="text-[10px] sm:text-xs text-zinc-300 font-bold max-w-[65px] sm:max-w-[80px] truncate leading-tight">{rank3.username}</span>
+                                    <span className="text-[9px] sm:text-[10px] text-[#8A8A8A] leading-none">{rank3.xp.toLocaleString()} XP</span>
                                 </div>
                             </div>
                         )}
