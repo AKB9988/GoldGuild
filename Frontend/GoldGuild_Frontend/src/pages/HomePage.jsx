@@ -21,49 +21,49 @@ export default function HomePage({ setActiveNav }) {
 
     const Category_Data = {
         FOOD: {
-            icon: <UtensilsCrossed size={20} />,
+            icon: <UtensilsCrossed size={20} className="text-red-400" />,
             label: "Food",
             colorClass: "bg-red-500/15 text-red-400",
             iconBg: "bg-red-500/12"
         },
         TRAVEL: {
-            icon: <Bus size={20} />,
+            icon: <Bus size={20} className="text-blue-400" />,
             label: "Travel",
             colorClass: "bg-blue-500/15 text-blue-400",
             iconBg: "bg-blue-500/12"
         },
         SHOPPING: {
-            icon: <ShoppingCart size={20} />,
+            icon: <ShoppingCart size={20} className="text-purple-400" />,
             label: "Shopping",
             colorClass: "bg-purple-500/15 text-purple-400",
             iconBg: "bg-purple-500/12"
         },
         ENTERTAINMENT: {
-            icon: <Clapperboard size={20} />,
+            icon: <Clapperboard size={20} className="text-green-400" />,
             label: "Entertainment",
             colorClass: "bg-green-500/15 text-green-400",
             iconBg: "bg-green-500/12"
         },
         HEALTH: {
-            icon: <BriefcaseMedical size={20} />,
+            icon: <BriefcaseMedical size={20} className="text-pink-400" />,
             label: "Health",
             colorClass: "bg-pink-500/15 text-pink-400",
             iconBg: "bg-pink-500/12"
         },
         EDUCATION: {
-            icon: <GraduationCap size={20} />,
+            icon: <GraduationCap size={20} className="text-yellow-400" />,
             label: "Education",
             colorClass: "bg-yellow-500/15 text-yellow-400",
             iconBg: "bg-yellow-500/12"
         },
         BILLS: {
-            icon: <CircleDollarSign size={20} />,
+            icon: <CircleDollarSign size={20} className="text-orange-400" />,
             label: "Bills",
             colorClass: "bg-orange-500/15 text-orange-400",
             iconBg: "bg-orange-500/12"
         },
         OTHER: {
-            icon: <Plus size={20} />,
+            icon: <Plus size={20} className="text-zinc-400" />,
             label: "Other",
             colorClass: "bg-zinc-500/15 text-zinc-400",
             iconBg: "bg-zinc-500/12"
@@ -72,55 +72,55 @@ export default function HomePage({ setActiveNav }) {
 
     const Badge_Data = {
         FIRST_EXPENSE: {
-            icon: <Trophy size={20} />,
+            icon: <Trophy size={20} className="text-yellow-400" />,
             label: "First Expense",
             colorClass: "bg-yellow-500/15 text-yellow-400",
             iconBg: "bg-yellow-500/12"
         },
         STREAK_7: {
-            icon: <Flame size={20} />,
+            icon: <Flame size={20} className="text-orange-400" />,
             label: "7-Day Streak",
             colorClass: "bg-orange-500/15 text-orange-400",
             iconBg: "bg-orange-500/12"
         },
         STREAK_30: {
-            icon: <Star size={20} />,
+            icon: <Star size={20} className="text-blue-400" />,
             label: "30-Day Streak",
             colorClass: "bg-blue-500/15 text-blue-400",
             iconBg: "bg-blue-500/12"
         },
         FIRST_GOAL: {
-            icon: <Target size={20} />,
+            icon: <Target size={20} className="text-red-400" />,
             label: "First Goal",
             colorClass: "bg-red-500/15 text-red-400",
             iconBg: "bg-red-500/12"
         },
         GOAL_COMPLETED: {
-            icon: <CheckCircle2 size={20} />,
+            icon: <CheckCircle2 size={20} className="text-green-400" />,
             label: "Goal Crusher",
             colorClass: "bg-green-500/15 text-green-400",
             iconBg: "bg-green-500/12"
         },
         UNDER_BUDGET: {
-            icon: <Wallet size={20} />,
+            icon: <Wallet size={20} className="text-emerald-400" />,
             label: "Under Budget",
             colorClass: "bg-emerald-500/15 text-emerald-400",
             iconBg: "bg-emerald-500/12"
         },
         BUDGET_MASTER: {
-            icon: <Gem size={20} />,
+            icon: <Gem size={20} className="text-cyan-400" />,
             label: "Budget Master",
             colorClass: "bg-cyan-500/15 text-cyan-400",
             iconBg: "bg-cyan-500/12"
         },
         LEVEL_5: {
-            icon: <Zap size={20} />,
+            icon: <Zap size={20} className="text-purple-400" />,
             label: "Level 5",
             colorClass: "bg-purple-500/15 text-purple-400",
             iconBg: "bg-purple-500/12"
         },
         XP_1000: {
-            icon: <Crown size={20} />,
+            icon: <Crown size={20} className="text-amber-400" />,
             label: "XP 1000",
             colorClass: "bg-amber-500/15 text-amber-400",
             iconBg: "bg-amber-500/12"

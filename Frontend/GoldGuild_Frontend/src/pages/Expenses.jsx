@@ -12,49 +12,49 @@ import AddExpense from "@/components/AddExpense.jsx";
 
 const Category_Data = {
     FOOD: {
-        icon: <UtensilsCrossed size={20} />,
+        icon: <UtensilsCrossed size={20} className="text-red-400" />,
         label: "Food",
         colorClass: "bg-red-500/15 text-red-400",
         iconBg: "bg-red-500/12"
     },
     TRAVEL: {
-        icon: <Bus size={20} />,
+        icon: <Bus size={20} className="text-blue-400" />,
         label: "Travel",
         colorClass: "bg-blue-500/15 text-blue-400",
         iconBg: "bg-blue-500/12"
     },
     SHOPPING: {
-        icon: <ShoppingCart size={20} />,
+        icon: <ShoppingCart size={20} className="text-purple-400" />,
         label: "Shopping",
         colorClass: "bg-purple-500/15 text-purple-400",
         iconBg: "bg-purple-500/12"
     },
     ENTERTAINMENT: {
-        icon: <Clapperboard size={20} />,
+        icon: <Clapperboard size={20} className="text-green-400" />,
         label: "Entertainment",
         colorClass: "bg-green-500/15 text-green-400",
         iconBg: "bg-green-500/12"
     },
     HEALTH: {
-        icon: <BriefcaseMedical size={20} />,
+        icon: <BriefcaseMedical size={20} className="text-pink-400" />,
         label: "Health",
         colorClass: "bg-pink-500/15 text-pink-400",
         iconBg: "bg-pink-500/12"
     },
     EDUCATION: {
-        icon: <GraduationCap size={20} />,
+        icon: <GraduationCap size={20} className="text-yellow-400" />,
         label: "Education",
         colorClass: "bg-yellow-500/15 text-yellow-400",
         iconBg: "bg-yellow-500/12"
     },
     BILLS: {
-        icon: <CircleDollarSign size={20} />,
+        icon: <CircleDollarSign size={20} className="text-orange-400" />,
         label: "Bills",
         colorClass: "bg-orange-500/15 text-orange-400",
         iconBg: "bg-orange-500/12"
     },
     OTHER: {
-        icon: <Plus size={20} />,
+        icon: <Plus size={20} className="text-zinc-400" />,
         label: "Other",
         colorClass: "bg-zinc-500/15 text-zinc-400",
         iconBg: "bg-zinc-500/12"
@@ -97,7 +97,7 @@ function EditExpense({ onClose, onSuccess, expense }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-            <div className="flex flex-col items-stretch p-7 shadow-2xl bg-surface-card border rounded-md w-full max-w-[440px]">
+            <div className="flex flex-col items-stretch p-5 sm:p-7 shadow-2xl bg-surface-card border rounded-md w-full max-w-[440px] max-h-[90vh] overflow-y-auto">
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="flex items-center gap-2 text-lg text-white font-bold"> Edit Expense <Pen size={16}/> </h3>
                     <Button size="icon" onClick={onClose} variant="ghost" className="rounded-full text-white border w-8 h-8"><X size="20" /> </Button>
@@ -121,19 +121,19 @@ function EditExpense({ onClose, onSuccess, expense }) {
 
                     <div className="mt-5 relative">
                         <label className="font-semibold text-xs text-[#8A8A8A] mb-1.5 block">Category</label>
-                        <div className="grid grid-cols-4 gap-2">
+                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                             {Object.entries(Category_Data).map(([key, value]) => (
                                 <button
                                     key={key} type="button"
                                     onClick={() => setCategory(key)}
-                                    className={`p-2.5 rounded-lg border text-center text-[11px] font-semibold transition-all cursor-pointer flex flex-col items-center
+                                    className={`p-2 sm:p-2.5 rounded-lg border text-center text-[10px] sm:text-[11px] font-semibold transition-all cursor-pointer flex flex-col items-center justify-center truncate
                                         ${category === key
                                         ? "border-gold text-gold bg-gold-glow"
                                         : "border text-[#8A8A8A] bg-surface-2 hover:border-gold/50 hover:text-gold/70"
                                     }`}
                                 >
-                                    <span className="block text-lg mb-0.5">{value.icon}</span>
-                                    {value.label}
+                                    <span className="block text-base sm:text-lg mb-0.5">{value.icon}</span>
+                                    <span className="truncate max-w-full">{value.label}</span>
                                 </button>
                             ))}
                         </div>
@@ -232,27 +232,27 @@ export default function Expenses() {
     }, [expenses, searchQuery, activeTab]);
 
     return (
-        <div className="w-full bg-[#0F0F0F] text-zinc-400 p-6 font-sans">
+        <div className="w-full text-zinc-400 font-sans">
 
-            <div className="flex items-center justify-between border-b border-zinc-900 pb-5 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-900 pb-5 mb-6">
                 <div>
                     <h1 className="text-2xl font-bold text-white tracking-tight">Expenses</h1>
                     <p className="text-xs text-zinc-500 mt-1">Manage, filter, and track your recent financial transaction logs.</p>
                 </div>
                 <button
                     onClick={()=>setAddExpense(true)}
-                    className="bg-[#f59e0b] hover:bg-[#d97706] text-[#0F0F0F] font-bold text-sm px-5 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-1 cursor-pointer"
+                    className="bg-[#f59e0b] hover:bg-[#d97706] text-[#0F0F0F] font-bold text-sm px-5 py-2.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-1 cursor-pointer w-full sm:w-auto"
                 >
                     + Add Expense
                 </button>
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                <div className="flex gap-2 overflow-x-auto pb-1">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div className="flex gap-2 overflow-x-auto pb-2 w-full md:w-auto shrink-0 scrollbar-none">
                     {CATEGORIES.map((cat) => (
                         <button
                             key={cat}
                             onClick={() => setActiveTab(cat)}
-                            className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
+                            className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer shrink-0 whitespace-nowrap ${
                                 activeTab === cat
                                     ? "bg-gold-glow border-gold text-gold"
                                     : "bg-[#1A1A1A] border-zinc-800 text-zinc-400 hover:border-zinc-700"
@@ -262,27 +262,27 @@ export default function Expenses() {
                         </button>
                     ))}
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 w-full md:w-auto">
                     <input
                         type="text"
                         placeholder="🔍 Search entries..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="bg-[#1A1A1A] border border-zinc-800 rounded-lg px-4 py-1.5 text-xs text-white outline-none focus:border-gold transition-colors w-48"
+                        className="bg-[#1A1A1A] border border-zinc-800 rounded-lg px-4 py-1.5 text-xs text-white outline-none focus:border-gold transition-colors w-full md:w-48"
                     />
                 </div>
             </div>
-            <div className="bg-[#141414] border border-zinc-900 rounded-xl overflow-hidden shadow-xl">
-                <table className="w-full text-left border-collapse text-xs">
+            <div className="bg-[#141414] border border-zinc-900 rounded-xl overflow-x-auto shadow-xl">
+                <table className="w-full text-left border-collapse text-xs min-w-[650px]">
                     <thead>
                     <tr className="border-b border-zinc-900 text-zinc-500 font-bold uppercase tracking-wider">
-                        <th className="p-4 w-12 text-center">#</th>
-                        <th className="p-4">Description</th>
-                        <th className="p-4">Category</th>
-                        <th className="p-4">Date</th>
-                        <th className="p-4 text-center">XP Earned</th>
-                        <th className="p-4">Amount</th>
-                        <th className="p-4 text-center w-28">Actions</th>
+                        <th className="p-3 sm:p-4 w-12 text-center">#</th>
+                        <th className="p-3 sm:p-4">Description</th>
+                        <th className="p-3 sm:p-4">Category</th>
+                        <th className="p-3 sm:p-4">Date</th>
+                        <th className="p-3 sm:p-4 text-center">XP Earned</th>
+                        <th className="p-3 sm:p-4">Amount</th>
+                        <th className="p-3 sm:p-4 text-center w-28">Actions</th>
                     </tr>
                     </thead>
                     <tbody className="divide-y divide-zinc-900/50">
@@ -377,11 +377,17 @@ export default function Expenses() {
                         Category_Data={Category_Data}
                         onClose={() => setAddExpense(false)}
                         onSuccess={async () => {
-                          await Promise.all( [ queryClient.invalidateQueries(["expenses"]),
-                            queryClient.invalidateQueries(["monthlyExpanses"]),
-                            queryClient.invalidateQueries(["budget-status"]),
-                            queryClient.invalidateQueries(["gamification-profile"]),
-                        ])}}
+                          try {
+                            await Promise.all([
+                              qc.invalidateQueries({ queryKey: ["expenses"] }),
+                              qc.invalidateQueries({ queryKey: ["expenses-month"] }),
+                              qc.invalidateQueries({ queryKey: ["budget-status"] }),
+                              qc.invalidateQueries({ queryKey: ["gamification-profile"] }),
+                            ]);
+                          } catch (err) {
+                            console.error("Failed to invalidate queries:", err);
+                          }
+                        }}
                     />
                 )
             }

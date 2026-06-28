@@ -13,49 +13,49 @@ import api from "@/services/api.js";
 
     const Category_Data = {
         FOOD: {
-            icon: <UtensilsCrossed size={20} />,
+            icon: <UtensilsCrossed size={20} className="text-red-400" />,
             label: "Food",
             colorClass: "bg-red-500/15 text-red-400",
             iconBg: "bg-red-500/12"
         },
         TRAVEL: {
-            icon: <Bus size={20} />,
+            icon: <Bus size={20} className="text-blue-400" />,
             label: "Travel",
             colorClass: "bg-blue-500/15 text-blue-400",
             iconBg: "bg-blue-500/12"
         },
         SHOPPING: {
-            icon: <ShoppingCart size={20} />,
+            icon: <ShoppingCart size={20} className="text-purple-400" />,
             label: "Shopping",
             colorClass: "bg-purple-500/15 text-purple-400",
             iconBg: "bg-purple-500/12"
         },
         ENTERTAINMENT: {
-            icon: <Clapperboard size={20} />,
+            icon: <Clapperboard size={20} className="text-green-400" />,
             label: "Entertainment",
             colorClass: "bg-green-500/15 text-green-400",
             iconBg: "bg-green-500/12"
         },
         HEALTH: {
-            icon: <BriefcaseMedical size={20} />,
+            icon: <BriefcaseMedical size={20} className="text-pink-400" />,
             label: "Health",
             colorClass: "bg-pink-500/15 text-pink-400",
             iconBg: "bg-pink-500/12"
         },
         EDUCATION: {
-            icon: <GraduationCap size={20} />,
+            icon: <GraduationCap size={20} className="text-yellow-400" />,
             label: "Education",
             colorClass: "bg-yellow-500/15 text-yellow-400",
             iconBg: "bg-yellow-500/12"
         },
         BILLS: {
-            icon: <CircleDollarSign size={20} />,
+            icon: <CircleDollarSign size={20} className="text-orange-400" />,
             label: "Bills",
             colorClass: "bg-orange-500/15 text-orange-400",
             iconBg: "bg-orange-500/12"
         },
         OTHER: {
-            icon: <Plus size={20} />,
+            icon: <Plus size={20} className="text-zinc-400" />,
             label: "Other",
             colorClass: "bg-zinc-500/15 text-zinc-400",
             iconBg: "bg-zinc-500/12"

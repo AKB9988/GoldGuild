@@ -61,7 +61,7 @@ export default function App() {
                         </header>
 
                         {/* Main Content View */}
-                        <main className="p-6 flex-1">
+                        <main className="p-4 sm:p-6 flex-1 min-w-0 overflow-x-hidden">
                             {activeNav === "Home" && <HomePage setActiveNav={setActiveNav} />}
                             {activeNav === "Expenses" && <Expenses />}
                             {activeNav === "Goals" && <Goals />}

@@ -38,7 +38,7 @@ export default function AddExpense({onClose,onSuccess,Category_Data}){
     };
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-        <div className="flex flex-col items-strech  p-7 shadow-2xl bg-surface-card border rounded-md w-full max-w-[440px] ">
+        <div className="flex flex-col items-stretch p-5 sm:p-7 shadow-2xl bg-surface-card border rounded-md w-full max-w-[440px] max-h-[90vh] overflow-y-auto">
             <div className= "flex items-center justify-between mb-6">
                 <h3 className="text-lg text-white font-bold"> Add Expense  </h3>
                 <Button size="icon" onClick={onClose} variant="ghost" className="rounded-full text-white border w-8 h-8"><X size="20"/> </Button>
@@ -62,19 +62,19 @@ export default function AddExpense({onClose,onSuccess,Category_Data}){
 
                 <div className="mt-5 relative">
                 <label className="font-semibold text-xs text-[#8A8A8A] mb-1.5 block">Category</label>
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                         {Object.entries(Category_Data).map(([key,value]) => (
                             <button
                                 key={key} type="button"
                                 onClick={() => setCategory(key)}
-                                className={`p-2.5 rounded-lg border text-center text-[11px] font-semibold transition-all cursor-pointer flex flex-col items-center
+                                className={`p-2 sm:p-2.5 rounded-lg border text-center text-[10px] sm:text-[11px] font-semibold transition-all cursor-pointer flex flex-col items-center justify-center truncate
                                         ${category === key
                                     ? "border-gold text-gold bg-gold-glow"
                                     : "border text-[#8A8A8A] bg-surface-2 hover:border-gold/50 hover:text-gold/70"
                                 }`}
                             >
-                                <span className="block text-lg mb-0.5">{value.icon}</span>
-                                {value.label}
+                                <span className="block text-base sm:text-lg mb-0.5">{value.icon}</span>
+                                <span className="truncate max-w-full">{value.label}</span>
                             </button>
                         ))}
                     </div>
