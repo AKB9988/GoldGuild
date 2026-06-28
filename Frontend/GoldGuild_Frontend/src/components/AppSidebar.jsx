@@ -1,14 +1,15 @@
-import {Banknote, Goal, Home, Podium, Handshake, ChartNoAxesColumn, Settings, Trophy} from "lucide-react";
+import {Banknote, Goal, Home, Podium, Handshake, ChartNoAxesColumn, Settings, Trophy, LogOut} from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
     SidebarHeader,
+    SidebarTrigger,
     useSidebar,
 } from "@/components/ui/sidebar"
 
-export default function AppSidebar({activeNav, setActiveNav}){
+export default function AppSidebar({activeNav, setActiveNav, onLogout}){
     const { state } = useSidebar();
 
     const NAV_ICONS=[
@@ -25,10 +26,13 @@ export default function AppSidebar({activeNav, setActiveNav}){
     return(
         <>
             <Sidebar className="dark" collapsible="icon">
-                <SidebarHeader className="bg-surface-card">
-                    <div className={`flex items-center bg-transparent border-b border-border-custom transition-all duration-200 ${state === "collapsed" ? "justify-center p-4" : "gap-2.5 px-5 py-6"}`}>
-                        <div className="w-9 h-9 bg-gradient-to-br from-amber-400 to-amber-600 rounded-[10px] flex items-center justify-center text-lg shadow-[0_0_15px_rgba(251,191,36,0.3)] flex-shrink-0"><Trophy /></div>
-                        {state !== "collapsed" && <span className="text-lg font-extrabold text-amber-500 tracking-tight">GoldGuild</span>}
+                <SidebarHeader className="bg-surface-card border-b border-border-custom p-0">
+                    <div className={`flex items-center justify-between transition-all duration-200 ${state === "collapsed" ? "flex-col gap-3 p-3" : "px-4 py-4"}`}>
+                        <div className="flex items-center gap-2.5 min-w-0">
+                            <div className="w-9 h-9 bg-gradient-to-br from-amber-400 to-amber-600 rounded-[10px] flex items-center justify-center text-lg shadow-[0_0_15px_rgba(251,191,36,0.3)] flex-shrink-0"><Trophy /></div>
+                            {state !== "collapsed" && <span className="text-lg font-extrabold text-amber-500 tracking-tight">GoldGuild</span>}
+                        </div>
+                        <SidebarTrigger className="text-[#8A8A8A] hover:text-gold hover:bg-surface-2 p-1.5 rounded-lg transition-colors cursor-pointer flex-shrink-0" />
                     </div>
                 </SidebarHeader>
 
@@ -49,11 +53,20 @@ export default function AppSidebar({activeNav, setActiveNav}){
                 </SidebarContent>
 
                 <SidebarFooter className="bg-surface-card p-0 border-t border-border-custom">
-                    <div className={`flex items-center transition-all duration-200 ${state === "collapsed" ? "justify-center px-0 py-4" : "gap-2.5 px-5 py-4"} font-semibold text-white`}>
-                        <div className="rounded-full h-10 w-10 flex items-center justify-center bg-gold text-sm text-[#0F0F0F] font-bold flex-shrink-0">
-                            {username.slice(0,2).toUpperCase()}
+                    <div className={`flex items-center justify-between transition-all duration-200 ${state === "collapsed" ? "flex-col gap-2 p-3" : "px-4 py-3.5"} font-semibold text-white`}>
+                        <div className="flex items-center gap-2.5 min-w-0">
+                            <div className="rounded-full h-9 w-9 flex items-center justify-center bg-gold text-xs text-[#0F0F0F] font-bold flex-shrink-0">
+                                {username.slice(0,2).toUpperCase()}
+                            </div>
+                            {state !== "collapsed" && <span className="truncate text-sm text-zinc-200">{username}</span>}
                         </div>
-                        {state !== "collapsed" && <span className="truncate">{username}</span>}
+                        <button
+                            onClick={onLogout}
+                            title="Log Out"
+                            className="p-2 text-[#8A8A8A] hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer flex items-center justify-center flex-shrink-0"
+                        >
+                            <LogOut size={18} />
+                        </button>
                     </div>
                 </SidebarFooter>
             </Sidebar>

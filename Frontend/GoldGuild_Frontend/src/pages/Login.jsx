@@ -5,7 +5,7 @@ import {ChartNoAxesColumn, Flame, Goal, Medal, Zap} from "lucide-react";
 import HomePage from "@/pages/HomePage.jsx";
 
 
-export default function Login() {
+export default function Login({ onLoginSuccess, onNavigateToRegister }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,10 +18,9 @@ export default function Login() {
             if (data.token) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('username', data.username);
-                alert("Login successful, token saved.");
-                <HomePage/>
                 setEmail('');
                 setPassword('');
+                if (onLoginSuccess) onLoginSuccess();
             }
             else
                 alert("Login successful but token not saved check backend");
@@ -114,7 +113,7 @@ export default function Login() {
                     </form>
 
                     <div className="text-center text-xs text-[#8A8A8A] mt-6">
-                        Don't have an account? <span className="text-gold font-semibold hover:underline ml-1 cursor-pointer">Signup</span>
+                        Don't have an account? <span onClick={onNavigateToRegister} className="text-gold font-semibold hover:underline ml-1 cursor-pointer">Signup</span>
                     </div>
 
                     <div className="mt-5 bg-gold-glow border border-gold-dim rounded-lg p-3 flex items-center gap-2.5">

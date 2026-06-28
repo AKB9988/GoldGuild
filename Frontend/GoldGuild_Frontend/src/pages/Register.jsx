@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import api from "../services/api.js";
 
-export default function Register() {
+export default function Register({ onNavigateToLogin }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,10 +13,11 @@ export default function Register() {
             return response.data;
         },
         onSuccess: (data) => {
-            alert("Registration successful, now login ");
+            alert("Registration successful, please sign in.");
             setEmail('');
             setPassword('');
             setUsername('');
+            if (onNavigateToLogin) onNavigateToLogin();
         },
         onError: (error) => {
             alert("Error: " + (error?.response?.data?.message || error?.message || "Something went wrong"));
@@ -107,7 +108,7 @@ export default function Register() {
                 </div>
 
                 <div className="text-center text-xs text-[#8A8A8A] mt-6">
-                    Already have an account? <span className="text-gold font-semibold hover:underline ml-1 cursor-pointer">Login</span>
+                    Already have an account? <span onClick={onNavigateToLogin} className="text-gold font-semibold hover:underline ml-1 cursor-pointer">Login</span>
                 </div>
 
                 <div className="mt-5 bg-surface-2 rounded-lg p-3 flex gap-3 items-center">
