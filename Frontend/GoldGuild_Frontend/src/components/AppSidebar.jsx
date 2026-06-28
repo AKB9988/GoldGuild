@@ -10,7 +10,14 @@ import {
 } from "@/components/ui/sidebar"
 
 export default function AppSidebar({activeNav, setActiveNav, onLogout}){
-    const { state } = useSidebar();
+    const { state, setOpenMobile, isMobile } = useSidebar();
+
+    const handleNavClick = (label) => {
+        setActiveNav(label);
+        if (isMobile) {
+            setOpenMobile(false);
+        }
+    };
 
     const NAV_ICONS=[
         { icon: <Home size={20} />, label: "Home" },
@@ -40,7 +47,7 @@ export default function AppSidebar({activeNav, setActiveNav, onLogout}){
                     {NAV_ICONS.map(({icon,label})=>(
                         <SidebarGroup key={label} className={state === "collapsed" ? "p-1" : "p-2"}>
                             <div
-                                onClick={()=>setActiveNav(label)}
+                                onClick={()=>handleNavClick(label)}
                                 className={`flex items-center rounded-lg text-sm font-medium cursor-pointer transition-all border 
                                 ${state === "collapsed" ? "justify-center px-0 py-2" : "gap-2.5 px-3 py-2"}
                                 ${activeNav === label ? "bg-gold-glow border-gold-dim text-gold font-semibold" : "border-transparent text-[#8A8A8A] hover:bg-surface-2 hover:text-white"}`}

@@ -1,5 +1,6 @@
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { useState } from "react";
+import { Trophy } from "lucide-react";
 
 import HomePage from "./pages/HomePage.jsx"
 import AppSidebar from "@/components/AppSidebar.jsx";
@@ -50,6 +51,15 @@ export default function App() {
                         onLogout={handleLogout}
                     />
                     <SidebarInset className="bg-surface-bg min-h-screen flex flex-col">
+                        {/* Mobile Only Navigation Bar */}
+                        <header className="flex md:hidden items-center justify-between px-4 py-3 bg-surface-card border-b border-border-custom sticky top-0 z-40">
+                            <div className="flex items-center gap-2.5">
+                                <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-amber-600 rounded-[8px] flex items-center justify-center text-sm shadow-[0_0_10px_rgba(251,191,36,0.3)]"><Trophy size={16} className="text-white" /></div>
+                                <span className="text-base font-extrabold text-amber-500 tracking-tight">GoldGuild</span>
+                            </div>
+                            <SidebarTrigger className="text-[#8A8A8A] hover:text-gold hover:bg-surface-2 p-1.5 rounded-lg transition-colors cursor-pointer" />
+                        </header>
+
                         {/* Main Content View */}
                         <main className="p-6 flex-1">
                             {activeNav === "Home" && <HomePage setActiveNav={setActiveNav} />}
