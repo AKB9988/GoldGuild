@@ -52,6 +52,8 @@ public class SavingGoalService {
         SavingGoal goal =savingGoalRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Saving goal not found"));
         if(goal.getUser().getId()!=(user.getId()))
             throw new IllegalArgumentException("You do not have permission to contribute to this goal.");
+        
+        boolean wasCompletedBefore = goal.isCompleted();
         BigDecimal updatedAmount=goal.getCurrentAmount().add(amount);
         goal.setCurrentAmount(updatedAmount);
         if(goal.getCurrentAmount().compareTo(goal.getTargetAmount())>=0)
@@ -61,8 +63,8 @@ public class SavingGoalService {
         // Award 20 XP for contributing
         gamificationService.awardXP(user, GamificationService.XP_GOAL_CONTRIBUTED);
 
-        // Award additional 100 XP if the goal just became completed
-        if (goal.isCompleted()) {
+        // Award additional 100 XP only if the goal just became completed
+        if (!wasCompletedBefore && goal.isCompleted()) {
             gamificationService.awardXP(user, GamificationService.XP_GOAL_COMPLETED);
         }
 

@@ -56,6 +56,7 @@ public class BudgetService {
 
             BigDecimal spent = BigDecimal.ZERO;
             for (Expense expense : expenses) {
+                if (expense.getDate() == null) continue;
                 boolean sameCategory = expense.getCategory() == budget.getCategory();
                 boolean sameMonth = toYearMonth(expense).equals(budget.getMonth());
                 if (sameCategory && sameMonth) {
