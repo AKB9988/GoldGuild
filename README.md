@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏆 GoldGuild
+# GoldGuild
 
 ### *Gamified Personal Finance — Track, Save, Compete, Level Up*
 
@@ -15,33 +15,45 @@
 
 ---
 
-**[🚀 Live Demo](https://gold-guild.vercel.app/) · [Overview](#-overview) · [Features](#-features) · [Tech Stack](#️-tech-stack) · [Getting Started](#-getting-started) · [API Reference](#-api-reference) · [XP System](#-xp--level-system)**
+**[Live Demo](https://gold-guild.vercel.app/) · [Overview](#overview) · [Preview](#preview) · [Features](#features) · [XP System](#xp--level-system) · [Architecture](#architecture) · [Tech Stack](#tech-stack) · [API Reference](#api-reference)**
 
 </div>
 
 ---
 
-## 📖 Overview
+## Overview
 
 **GoldGuild** is a full-stack gamified personal finance app that turns budgeting into an RPG-like experience. Earn XP for logging expenses, level up your profile, unlock achievement badges, maintain daily streaks, and compete on a global leaderboard.
 
-> 💡 **Core Philosophy:** Financial discipline shouldn't feel like a chore. GoldGuild rewards good habits with a game-like progression system that keeps users motivated.
+> **Core Philosophy:** Financial discipline shouldn't feel like a chore. GoldGuild rewards good habits with a game-like progression system that keeps users motivated.
 
 ---
 
-## ✨ Features
+## Preview
+
+| Dashboard | Expenses |
+| :---: | :---: |
+| <img width="500" src="https://github.com/user-attachments/assets/07221507-c755-4be3-b79e-f25777da19bb"/> | <img width="500" src="https://github.com/user-attachments/assets/2836ba26-a90e-498b-8941-12211fc68049"/> |
+
+| Goals | Analytics |
+| :---: | :---: |
+| <img width="500" src="https://github.com/user-attachments/assets/248a9ecd-c7a4-4ad9-a80d-20cea10e3c4f"/> | <img width="500" src="https://github.com/user-attachments/assets/5fb6ca60-044b-4d67-9a3c-72f5b5e1745a"/> |
+
+---
+
+## Features
 
 | Module | Highlights |
 |---|---|
-| 💰 **Expenses** | Log across 6 categories, full CRUD, filter by month, earn +10 XP per log |
-| 📊 **Budgets** | Per-category monthly budgets, live spent vs. remaining, earn +50 XP for staying under |
-| 🎯 **Saving Goals** | Create goals, contribute incrementally, earn +20 XP per contribution, +100 XP on completion |
-| 🏆 **Gamification** | XP system, level-up every 500 XP, 7-day & 30-day streaks, 9 unique badges |
-| 👥 **Social** | Friend requests by username, global XP leaderboard |
-| 📈 **Analytics** | Visual spending breakdowns and monthly comparisons |
-| 🔐 **Auth** | JWT-based stateless auth, BCrypt password hashing, secured REST endpoints |
+| **Expenses** | Log across 6 categories, full CRUD, filter by month, earn +10 XP per log |
+| **Budgets** | Per-category monthly budgets, live spent vs. remaining, earn +50 XP for staying under |
+| **Saving Goals** | Create goals, contribute incrementally, earn +20 XP per contribution, +100 XP on completion |
+| **Gamification** | XP system, level-up every 500 XP, 7-day & 30-day streaks, 9 unique badges |
+| **Social** | Friend requests by username, global XP leaderboard |
+| **Analytics** | Visual spending breakdowns and monthly comparisons |
+| **Auth** | JWT-based stateless auth, BCrypt password hashing, secured REST endpoints |
 
-### 🎖️ Achievement Badges
+### Achievement Badges
 
 | Badge | Unlock Condition |
 |---|---|
@@ -55,67 +67,88 @@
 
 ---
 
-## 🏗️ Architecture
+## XP & Level System
 
-```mermaid
-flowchart LR
-    U(("👤 User"))
+```text
+Level = floor(Total XP / 500) + 1
 
-    subgraph FE["🌐 Frontend"]
-        R["React\nPages & Components"]
-        AX["Axios\nHTTP Client"]
-    end
-
-    subgraph BE["☕ Backend"]
-        JWT["🔐 JWT Filter"]
-        CTL["Controller\nREST Layer"]
-        DTO["DTO\nRequest / Response"]
-        SVC["Service\nBusiness Logic"]
-        REPO["Repository\nSpring Data JPA"]
-    end
-
-    DB[("🗄️ MySQL 8")]
-
-    SCHED["⏰ Scheduler\nCron Jobs"]
-
-    U -->|"interacts"| R
-    R --> AX
-    AX -->|"HTTP Request\n+ Bearer Token"| JWT
-    JWT -->|"validates"| CTL
-    CTL <-->|"maps"| DTO
-    DTO --> SVC
-    SVC --> REPO
-    REPO -->|"SQL"| DB
-    SCHED -->|"triggers"| SVC
-
-    style FE fill:#0d2137,color:#fff,stroke:#61DAFB,stroke-width:2px
-    style BE fill:#0d1f0d,color:#fff,stroke:#6DB33F,stroke-width:2px
-    style DB fill:#0d1226,color:#fff,stroke:#4479A1,stroke-width:2px
-    style SCHED fill:#2a1a00,color:#fff,stroke:#f59e0b,stroke-width:2px
+XP Rewards:
+  Log an expense      →  +10 XP
+  Contribute to goal  →  +20 XP
+  Stay under budget   →  +50 XP
+  Complete a goal     → +100 XP
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## Architecture
+
+```mermaid
+flowchart TD
+    U[User]
+    FE[React Frontend<br/>Vite + TailwindCSS<br/>TanStack Query]
+    AUTH[JWT Auth Filter]
+    API[REST Controllers]
+    SERVICE[Service Layer<br/>Business Logic<br/>Gamification Engine]
+    REPO[Repository Layer<br/>Spring Data JPA]
+    DB[(MySQL Database)]
+    CRON[Scheduled Jobs<br/>Daily + Monthly Reset]
+
+    U --> FE
+    FE --> API
+    API --> AUTH
+    AUTH --> SERVICE
+    SERVICE --> REPO
+    REPO --> DB
+    CRON --> SERVICE
+```
+
+---
+
+## Tech Stack
 
 | Layer | Technologies |
 |---|---|
 | **Backend** | Java 21, Spring Boot 4, Spring Security, Spring Data JPA, JJWT 0.12, MySQL 8 |
-| **Frontend** | React 19, Vite 8, TailwindCSS 4, shadcn/ui, TanStack Query 5, React Router 7, Axios |
+| **Frontend** | React 19, Vite 8, TailwindCSS 4, shadcn/ui, TanStack Query 5, Axios |
 
 ---
 
-## 🚀 Getting Started
+## Engineering Challenges
+
+While building GoldGuild, key architectural and technical hurdles solved include:
+
+- Designing an XP reward system that feels meaningful
+- Implementing stateless JWT authentication using Spring Security
+- Managing protected and public routes securely
+- Handling cache invalidation after frontend mutations using TanStack Query
+- Writing scheduled cron jobs for streak resets and monthly budget resets
+- Preventing duplicate badge unlock conditions - Structuring backend services cleanly as project complexity increased
+- Structuring clean separation between Controllers, Services, DTOs, and Repositories
+
+---
+
+## Deployment
+
+| Layer | Hosting Provider |
+|---|---|
+| **Frontend** | Vercel |
+| **Backend** | Render |
+| **Database** | MySQL |
+
+---
+
+## Getting Started
 
 ### Prerequisites
-- Java 21+, Maven (or use `mvnw`)
-- Node.js 18+ and npm
-- MySQL 8+ running locally
+- **Java 21+** and Maven (or use included `./mvnw`)
+- **Node.js 18+** and npm
+- **MySQL 8+** running locally
 
-### 1. Clone
+### 1. Clone Repository
 
 ```bash
-git clone https://github.com/your-username/GoldGuild.git
+git clone https://github.com/AKB9988/GoldGuild.git
 cd GoldGuild
 ```
 
@@ -141,7 +174,7 @@ jwt.expiration=86400000
 server.port=8080
 ```
 
-> ⚠️ **Never commit `application.properties` to version control** — it is already in `.gitignore`.
+> **Warning:** Never commit `application.properties` to version control — it is already listed in `.gitignore`.
 
 Run the backend:
 ```bash
@@ -166,7 +199,7 @@ Frontend live at → `http://localhost:5173`
 
 ---
 
-## 📡 API Reference
+## API Reference
 
 | Controller | Base Path | Key Endpoints |
 |---|---|---|
@@ -178,34 +211,14 @@ Frontend live at → `http://localhost:5173`
 | `FriendshipController` | `/api/friends` | `POST /request`, `PUT /{id}/accept`, `GET /pending`, `GET` |
 
 All protected endpoints require:
-```
+```http
 Authorization: Bearer <your_jwt_token>
 ```
 
 ---
 
-## 🎮 XP & Level System
-
-```
-Level = floor(Total XP / 500) + 1
-
-XP Rewards:
-  Log an expense      →  +10 XP
-  Contribute to goal  →  +20 XP
-  Stay under budget   →  +50 XP
-  Complete a goal     → +100 XP
-```
-
----
-
-## 📄 License
-
-MIT License — see [LICENSE](LICENSE) for details.
-
----
-
 <div align="center">
 
-Built with ❤️ · Powered by Spring Boot & React · Designed to make finance fun
+Powered by Spring Boot & React · Designed to make finance fun
 
 </div>
