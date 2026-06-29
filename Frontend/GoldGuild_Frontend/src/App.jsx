@@ -39,7 +39,8 @@ export default function App() {
 
             {authScreen === "register" && (
                 <Register 
-                    onNavigateToLogin={() => setAuthScreen("login")} 
+                    onNavigateToLogin={() => setAuthScreen("login")}
+                    onLoginSuccess={() => setAuthScreen("app")}
                 />
             )}
 

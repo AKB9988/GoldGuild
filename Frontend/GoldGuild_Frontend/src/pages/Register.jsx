@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import api from "../services/api.js";
 
-export default function Register({ onNavigateToLogin }) {
+export default function Register({ onNavigateToLogin, onLoginSuccess }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,11 +13,17 @@ export default function Register({ onNavigateToLogin }) {
             return response.data;
         },
         onSuccess: (data) => {
-            alert("Registration successful, please sign in.");
-            setEmail('');
-            setPassword('');
-            setUsername('');
-            if (onNavigateToLogin) onNavigateToLogin();
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('username', data.username);
+                setEmail('');
+                setPassword('');
+                setUsername('');
+                if (onLoginSuccess) onLoginSuccess();
+            } else {
+                alert("Registration successful, please sign in.");
+                if (onNavigateToLogin) onNavigateToLogin();
+            }
         },
         onError: (error) => {
             alert("Error: " + (error?.response?.data?.message || error?.message || "Something went wrong"));
