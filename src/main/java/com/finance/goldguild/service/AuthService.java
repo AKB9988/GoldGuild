@@ -15,7 +15,8 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
-    private  final JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+    private final GamificationService gamificationService;
     public AuthResponse register(RegisterRequest request)
     {
         if(userRepo.existsByEmail(request.getEmail()))
@@ -27,7 +28,8 @@ public class AuthService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepo.save(user);
-        String token =jwtUtil.generateToken(request.getEmail());
+        gamificationService.awardXP(user, GamificationService.XP_REGISTRATION);
+        String token = jwtUtil.generateToken(request.getEmail());
         return new AuthResponse(token, user.getUsername());
     }
     public AuthResponse login(LoginRequest request)

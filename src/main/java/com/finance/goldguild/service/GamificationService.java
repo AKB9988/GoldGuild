@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class GamificationService {
 
 
+    public static final int XP_REGISTRATION      = 50;
     public static final int XP_EXPENSE_ADDED     = 10;
     public static final int XP_GOAL_CONTRIBUTED  = 20;
     public static final int XP_GOAL_COMPLETED    = 100;

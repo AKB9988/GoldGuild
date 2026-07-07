@@ -33,11 +33,11 @@
 
 | Dashboard | Expenses |
 | :---: | :---: |
-| <img width="500" src="https://github.com/user-attachments/assets/07221507-c755-4be3-b79e-f25777da19bb"/> | <img width="500" src="https://github.com/user-attachments/assets/2836ba26-a90e-498b-8941-12211fc68049"/> |
+| <img width="500" src="YOUR_IMAGE_LINK"/> | <img width="500" src="YOUR_IMAGE_LINK"/> |
 
 | Goals | Analytics |
 | :---: | :---: |
-| <img width="500" src="https://github.com/user-attachments/assets/248a9ecd-c7a4-4ad9-a80d-20cea10e3c4f"/> | <img width="500" src="https://github.com/user-attachments/assets/5fb6ca60-044b-4d67-9a3c-72f5b5e1745a"/> |
+| <img width="500" src="YOUR_IMAGE_LINK"/> | <img width="500" src="YOUR_IMAGE_LINK"/> |
 
 ---
 
@@ -118,12 +118,12 @@ flowchart TD
 
 While building GoldGuild, key architectural and technical hurdles solved include:
 
-- Designing an XP reward system that feels meaningful
-- Implementing stateless JWT authentication using Spring Security
-- Managing protected and public routes securely
-- Handling cache invalidation after frontend mutations using TanStack Query
-- Writing scheduled cron jobs for streak resets and monthly budget resets
-- Preventing duplicate badge unlock conditions - Structuring backend services cleanly as project complexity increased
+- Designing a balanced XP reward system that incentivizes consistent daily logging
+- Implementing stateless JWT authentication filters using Spring Security
+- Managing protected vs. public route security and token lifecycle
+- Handling real-time frontend cache invalidation after mutations using TanStack Query
+- Writing automated cron schedulers for midnight streak calculations and monthly budget resets
+- Preventing race conditions and duplicate badge unlock triggers
 - Structuring clean separation between Controllers, Services, DTOs, and Repositories
 
 ---
