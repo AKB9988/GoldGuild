@@ -33,11 +33,11 @@
 
 | Dashboard | Expenses |
 | :---: | :---: |
-| <img width="500" src="YOUR_IMAGE_LINK"/> | <img width="500" src="YOUR_IMAGE_LINK"/> |
+| <img width="500" src="https://github.com/user-attachments/assets/07221507-c755-4be3-b79e-f25777da19bb"/> | <img width="500" src="https://github.com/user-attachments/assets/2836ba26-a90e-498b-8941-12211fc68049"/> |
 
 | Goals | Analytics |
 | :---: | :---: |
-| <img width="500" src="YOUR_IMAGE_LINK"/> | <img width="500" src="YOUR_IMAGE_LINK"/> |
+| <img width="500" src="https://github.com/user-attachments/assets/248a9ecd-c7a4-4ad9-a80d-20cea10e3c4f"/> | <img width="500" src="https://github.com/user-attachments/assets/5fb6ca60-044b-4d67-9a3c-72f5b5e1745a"/> |
 
 ---
 
